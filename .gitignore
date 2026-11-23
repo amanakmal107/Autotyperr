@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+.vercel
+*.local
+.vscode
+.DS_Store
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
