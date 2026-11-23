@@ -1,6 +1,7 @@
 node_modules
 dist
 dist-ssr
+release
 .vercel
 *.local
 .vscode
@@ -9,3 +10,6 @@ dist-ssr
 *.user
 *.userosscache
 *.sln.docstates
+*.exe
+*.blockmap
+*.yml.bak

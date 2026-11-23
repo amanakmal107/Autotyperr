@@ -28,7 +28,9 @@ let currentShortcuts = {
 
 // Initialize PowerShell background typer
 function initPowerShellTyper() {
-  const scriptPath = path.join(__dirname, 'typer.ps1');
+  const scriptPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'typer.ps1')
+    : path.join(__dirname, 'typer.ps1');
   try {
     psProcess = cp.spawn('powershell.exe', [
       '-ExecutionPolicy', 'Bypass',
@@ -65,7 +67,9 @@ function sendCharToOS(charCode) {
 }
 
 function createWindow() {
-  const iconPath = path.join(__dirname, '../public/icon.png');
+  const iconPath = app.isPackaged
+    ? path.join(process.resourcesPath, '../icon.png')
+    : path.join(__dirname, '../public/icon.png');
 
   mainWindow = new BrowserWindow({
     width: 1220,
@@ -84,11 +88,13 @@ function createWindow() {
   });
 
   const devUrl = 'http://localhost:5173';
-  const prodPath = path.join(__dirname, '../dist/index.html');
+  const prodPath = app.isPackaged
+    ? path.join(process.resourcesPath, '../app/dist/index.html')
+    : path.join(__dirname, '../dist/index.html');
 
   if (process.env.NODE_ENV === 'development' || !app.isPackaged) {
     mainWindow.loadURL(devUrl).catch(() => {
-      mainWindow.loadFile(prodPath);
+      mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
     });
   } else {
     mainWindow.loadFile(prodPath);
